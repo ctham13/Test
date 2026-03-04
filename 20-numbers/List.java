@@ -15,7 +15,18 @@ public class List{
       if(list[x] == 0){
         insert(n, x);
         if(inOrder()){
-          //calc probablity, insert into probList
+          double prob = 1.0;
+          int spots = 0;
+          for(int i = 0; i < list.length; i++){
+            if(list[i] == 0){
+              spots++;
+            }
+            if(list[i] != 0 && spots != 0){
+              prob *= probability(list[i]- list[i - spots], spots);
+              spots = 0;
+            }
+          }
+          probList[x] = prob;
         }
         list[x] = 0;
       }
@@ -29,15 +40,21 @@ public class List{
       }
     }
     if(bestProb == 0.0){
-
+      System.out.println("cannot be placed");
     }
+    System.out.println(Arrays.toString(probList));
+    probList = new double[20];
     return bestProbIndex;
   }
   public void insert(int value, int pos){
     list[pos] = value;
+    nums++;
+  }
+  public void print(){
+    System.out.println(Arrays.toString(list));
   }
   public double probability(int prob, int spots){
-    return nCr(prob, spots).divide(nCr(20 - nums, 1000)).doubleValue();
+    return (nCr(prob, spots).divide(nCr(1000, 20-nums))).doubleValue();
   }
   public boolean inOrder(){
       int prev = Integer.MIN_VALUE;
