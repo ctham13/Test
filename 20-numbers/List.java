@@ -54,7 +54,7 @@ public class List{
     System.out.println(Arrays.toString(list));
   }
   public double probability(int prob, int spots){
-    return (nCr(prob, spots).divide(nCr(1000, 20-nums))).doubleValue();
+    return (nCr(prob, spots).doubleValue() / (nCr(1000, 20 - nums)).doubleValue());
   }
   public boolean inOrder(){
       int prev = Integer.MIN_VALUE;
